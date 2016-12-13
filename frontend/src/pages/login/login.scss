@@ -1,0 +1,43 @@
+$background: #009688;
+$line-border-width: 2px;
+$input-font-family: HelveticaNeueDeskInterface-Regular;
+$input-font-color: rgba(0,0,0,0.38);
+$input-font-size: 16px;
+$button-font-size: 14px;
+
+
+page-login {
+    .login {
+        margin: auto;
+        padding: auto;
+        width: 93%;    
+    }
+    .login-input {
+        font-family: $input-font-family;
+        color: $input-font-color;
+        font-size: $input-font-size;
+        border-style: none none none none;
+        border-bottom: $line-border-width solid #009688;;
+        //border-width: $line-border-width;
+        letter-spacing: 0.5px;
+    }
+
+    .login-button {
+        margin-top: 30px;
+        font-family: $input-font-family;
+        font-size: 14px;
+        color: #FFFFFF;
+        letter-spacing: 0.5px;
+        background: #009688;
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24);
+        border-radius: 2px;
+    }
+
+    .login-text {
+        font-family: $input-font-family;
+        font-size: 18px;
+        color: #009688;
+        letter-spacing: 0;
+        line-height: 28px;
+    }
+}
