@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+    var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 //var bcrypt = require('bcrypt');
 var crypto = require('crypto'); 
@@ -24,6 +24,7 @@ UserSchema.pre('save', function (next) {
     if (this.isModified('password') || this.isNew) {
         user.password.salt = getRandomString(10);
         user.password.passwordHash = sha512(user.password.passwordHash, user.password.salt);
+        next();
         /*
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
@@ -42,13 +43,18 @@ UserSchema.pre('save', function (next) {
     }
 });
  
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
+UserSchema.methods.comparePassword = function (passwd, err) {
+    if (passw.passwordHash === this.password.passwordHash) {
+        return cb(null, isMatch);
+    } else {
+        return 
+    }
+   /* bcrypt.compare(passw, this.password, function (err, isMatch) {
         if (err) {
             return cb(err);
         }
         cb(null, isMatch);
-    });
+    });*/
 };
 
 /**

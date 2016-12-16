@@ -8,17 +8,34 @@ var config      = require('./config/database'); // get db config file
 var User        = require('./app/models/user'); // get the mongoose model
 var port        = process.env.PORT || 8080;
 var jwt         = require('jwt-simple');
+const LocalStrategy = require('passport-local').Strategy
 
 // get our request parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
- 
+
+User = {
+	find: (username, password) => {
+		return users.find((user) => {
+			return user.username === username && user.password === password
+		})
+	},
+
+	findById: (id) => {
+		return users.find((user) => {
+			return user.id === id
+		})
+	}
+}
+
 // log to console
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
  
 // Use the passport package in our application
 app.use(passport.initialize());
  
+
+
 // demo Route (GET http://localhost:8080)
 app.get('/', function(req, res) {
   res.send('Hello! The API is at http://localhost:' + port + '/api');
@@ -27,6 +44,19 @@ app.get('/', function(req, res) {
 // Start the server
 app.listen(port);
 console.log('There will be dragons: http://localhost:' + port);
+
+dbConnector.openConnection();
+
+passport.use(new LocalStrategy( // Reminder : LocalStrategy = require('passport-local').Strategy
+	(username, password, done) => {
+
+		console.log("Username and password : ", username, password)
+
+		let user = User.find(username, password)
+		done(false, user || false)
+
+	}
+));
 
 //https://devdactic.com/restful-api-user-authentication-1/
 
